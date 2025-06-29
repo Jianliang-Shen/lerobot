@@ -411,10 +411,10 @@ class MobileManipulator:
         y_cmd = 0.0  # m/s forward/backward
         x_cmd = 0.0  # m/s lateral
         theta_cmd = 0.0  # deg/s rotation
-        if self.pressed_keys["forward"]:
-            y_cmd += xy_speed
-        if self.pressed_keys["backward"]:
+        if self.pressed_keys["forward"]:  # FIXME: Forward and backward is reversed
             y_cmd -= xy_speed
+        if self.pressed_keys["backward"]:
+            y_cmd += xy_speed
         if self.pressed_keys["left"]:
             x_cmd += xy_speed
         if self.pressed_keys["right"]:
