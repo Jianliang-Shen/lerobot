@@ -31,7 +31,10 @@ from lerobot.common.robot_devices.robots.feetech_calibration import run_arm_manu
 from lerobot.common.robot_devices.robots.utils import get_arm_id
 from lerobot.common.robot_devices.utils import RobotDeviceNotConnectedError
 
-PYNPUT_AVAILABLE = True
+from NS.NintendoController import NintendoController
+from NS.NintendoRobotController import ControllerListener
+
+PYNPUT_AVAILABLE = False
 try:
     # Only import if there's a valid X server or if we're not on a Pi
     if ("DISPLAY" not in os.environ) and ("linux" in sys.platform):
@@ -120,6 +123,10 @@ class MobileManipulator:
         else:
             print("pynput not available - skipping local keyboard listener.")
             self.listener = None
+
+        self.controller = NintendoController(command_freq=20)
+        self.listener = ControllerListener(self.controller, self.get_controller_input, self.get_controller_input_rel)
+        self.listener.start()
 
     def get_motor_names(self, arms: dict[str, MotorsBus]) -> list:
         return [f"{arm}_{motor}" for arm, bus in arms.items() for motor in bus.motors]
@@ -231,6 +238,54 @@ class MobileManipulator:
                 elif key.char == self.teleop_keys["rotate_left"]:
                     self.pressed_keys["rotate_left"] = False
                 elif key.char == self.teleop_keys["rotate_right"]:
+                    self.pressed_keys["rotate_right"] = False
+        except AttributeError:
+            pass
+
+    def get_controller_input(self, key):
+        print(key)
+        # Movement
+        if key == self.teleop_keys["forward"]:
+            self.pressed_keys["forward"] = True
+        elif key == self.teleop_keys["backward"]:
+            self.pressed_keys["backward"] = True
+        elif key == self.teleop_keys["left"]:
+            self.pressed_keys["left"] = True
+        elif key == self.teleop_keys["right"]:
+            self.pressed_keys["right"] = True
+        elif key == self.teleop_keys["rotate_left"]:
+            self.pressed_keys["rotate_left"] = True
+        elif key == self.teleop_keys["rotate_right"]:
+            self.pressed_keys["rotate_right"] = True
+
+        # Quit teleoperation
+        elif key == self.teleop_keys["quit"]:
+            self.running = False
+            return False
+
+        # Speed control
+        elif key == self.teleop_keys["speed_up"]:
+            self.speed_index = min(self.speed_index + 1, 2)
+            print(f"Speed index increased to {self.speed_index}")
+        elif key == self.teleop_keys["speed_down"]:
+            self.speed_index = max(self.speed_index - 1, 0)
+            print(f"Speed index decreased to {self.speed_index}")
+
+
+    def get_controller_input_rel(self, key):
+        try:
+            if KeyError:
+                if key == self.teleop_keys["forward"]:
+                    self.pressed_keys["forward"] = False
+                elif key == self.teleop_keys["backward"]:
+                    self.pressed_keys["backward"] = False
+                elif key == self.teleop_keys["left"]:
+                    self.pressed_keys["left"] = False
+                elif key == self.teleop_keys["right"]:
+                    self.pressed_keys["right"] = False
+                elif key == self.teleop_keys["rotate_left"]:
+                    self.pressed_keys["rotate_left"] = False
+                elif key == self.teleop_keys["rotate_right"]:
                     self.pressed_keys["rotate_right"] = False
         except AttributeError:
             pass
