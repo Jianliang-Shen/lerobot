@@ -260,8 +260,8 @@ class ManipulatorRobot:
             self.set_koch_robot_preset()
         elif self.robot_type == "aloha":
             self.set_aloha_robot_preset()
-        # elif self.robot_type in ["so100", "so101", "moss", "lekiwi"]:
-        #     self.set_so100_robot_preset()
+        elif self.robot_type in ["so100", "so101", "moss", "lekiwi"]:
+            self.set_so100_robot_preset()
 
         # Enable torque on all motors of the follower arms
         for name in self.follower_arms:
@@ -430,7 +430,7 @@ class ManipulatorRobot:
             # Mode=0 for Position Control
             self.follower_arms[name].write("Mode", 0)
             # Set P_Coefficient to lower value to avoid shakiness (Default is 32)
-            self.follower_arms[name].write("P_Coefficient", 4)
+            self.follower_arms[name].write("P_Coefficient", 3)
             # Set I_Coefficient and D_Coefficient to default value 0 and 32
             self.follower_arms[name].write("I_Coefficient", 0)
             self.follower_arms[name].write("D_Coefficient", 8)

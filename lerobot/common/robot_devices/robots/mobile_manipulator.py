@@ -34,7 +34,7 @@ from lerobot.common.robot_devices.utils import RobotDeviceNotConnectedError
 from NS.NintendoController import NintendoController
 from NS.NintendoRobotController import ControllerListener
 
-PYNPUT_AVAILABLE = False
+PYNPUT_AVAILABLE = True
 try:
     # Only import if there's a valid X server or if we're not on a Pi
     if ("DISPLAY" not in os.environ) and ("linux" in sys.platform):
@@ -124,9 +124,9 @@ class MobileManipulator:
             print("pynput not available - skipping local keyboard listener.")
             self.listener = None
 
-        self.controller = NintendoController(command_freq=20)
-        self.listener = ControllerListener(self.controller, self.get_controller_input, self.get_controller_input_rel)
-        self.listener.start()
+        # self.controller = NintendoController(command_freq=20)
+        # self.listener = ControllerListener(self.controller, self.get_controller_input, self.get_controller_input_rel)
+        # self.listener.start()
 
     def get_motor_names(self, arms: dict[str, MotorsBus]) -> list:
         return [f"{arm}_{motor}" for arm, bus in arms.items() for motor in bus.motors]
