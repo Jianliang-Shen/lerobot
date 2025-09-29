@@ -95,6 +95,14 @@ from lerobot.utils.robot_utils import precise_sleep
 from lerobot.utils.utils import init_logging, move_cursor_up
 from lerobot.utils.visualization_utils import init_rerun, log_rerun_data
 
+from ArmDriver.DmArmLeader import DmArmLeader
+from ArmDriver.DuoDmArmLeader import DuoDmArmLeader
+from ArmDriver.UArmLeader import UArmLeader
+from ArmDriver.DuoUArmLeader import DuoUArmLeader
+
+from ArmDriver.DmArmFollower import DmArmFollower
+from ArmDriver.DuoDmArmFollower import DuoDmArmFollower
+
 
 @dataclass
 class TeleoperateConfig:

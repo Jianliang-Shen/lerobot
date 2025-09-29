@@ -128,6 +128,14 @@ from lerobot.utils.utils import (
 )
 from lerobot.utils.visualization_utils import init_rerun, log_rerun_data
 
+from ArmDriver.DmArmLeader import DmArmLeader
+from ArmDriver.DuoDmArmLeader import DuoDmArmLeader
+from ArmDriver.UArmLeader import UArmLeader
+from ArmDriver.DuoUArmLeader import DuoUArmLeader
+
+from ArmDriver.DmArmFollower import DmArmFollower
+from ArmDriver.DuoDmArmFollower import DuoDmArmFollower
+
 
 @dataclass
 class DatasetRecordConfig:

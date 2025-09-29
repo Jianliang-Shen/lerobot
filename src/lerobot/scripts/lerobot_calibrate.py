@@ -56,6 +56,14 @@ from lerobot.utils.import_utils import register_third_party_plugins
 from lerobot.utils.utils import init_logging
 
 
+from ArmDriver.DmArmLeader import DmArmLeader
+from ArmDriver.DuoDmArmLeader import DuoDmArmLeader
+from ArmDriver.UArmLeader import UArmLeader
+from ArmDriver.DuoUArmLeader import DuoUArmLeader
+
+from ArmDriver.DmArmFollower import DmArmFollower
+from ArmDriver.DuoDmArmFollower import DuoDmArmFollower
+
 @dataclass
 class CalibrateConfig:
     teleop: TeleoperatorConfig | None = None

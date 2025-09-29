@@ -52,6 +52,7 @@ COMPATIBLE_DEVICES = [
     "so101_follower",
     "so101_leader",
     "lekiwi",
+    "dm_arm_leader",
 ]
 
 
